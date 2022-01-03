@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title> </title>
+  </head>
+
+  <body>
+    <script>
+      /* eslint-disable */
+      const toppings = [
+        "Mushrooms ",
+        "Tomatoes",
+        "Eggs",
+        "Chili",
+        "Lettuce",
+        "Avocado",
+        "Chiles",
+        "Bacon",
+        "Pickles",
+        "Onions",
+        "Cheese",
+      ];
+
+      const buns = ["egg", "wonder", "brioche"];
+
+      const meats = {
+        beyond: 10,
+        beef: 5,
+        pork: 7,
+      };
+
+      const prices = {
+        hotDog: 453,
+        burger: 765,
+        sausage: 634,
+        corn: 234,
+      };
+
+      const orderTotals = [342, 1002, 523, 34, 634, 854, 1644, 2222];
+
+      const feedback = [
+        { comment: "Love the burgs", rating: 4 },
+        { comment: "Horrible Service", rating: 2 },
+        { comment: "Smoothies are great, liked the burger too", rating: 5 },
+        { comment: "Ambiance needs work", rating: 3 },
+        { comment: "I DONT LIKE BURGERS", rating: 1 },
+      ];
+
+      /*
+
+            Static Methods
+          */
+
+      // slice - immutable
+      // splice - mutable ---> used tyo insert items in between the array elements
+      // split - immutable
+      // push, pop,shift, unshift - mutable
+
+      // Array.of();
+      // creates an array with value equal to the arguements that you have passed into the simple brackets
+      console.log(Array.of(16));
+      console.log(..."tia saxena");
+
+      // Make a function that creates a range from x to y with Array.from();
+      // '_' => is the individual elements of each of the array slots and i is the index.
+      const arr = Array.from({ length: 10 }, (_, i) => i + 1);
+
+      function createRange(start, end) {
+        const range = Array.from(
+          { length: end - start + 1 },
+          (item, index) => index + start
+        );
+        return range;
+      }
+
+      const myRange = createRange(3, 7);
+      console.log(myRange);
+
+      // Check if the last array you created is really an array with Array.isArray();
+      console.log(Array.isArray(arr));
+      console.log(Array.isArray(myRange));
+
+      // Take the meats object and make three arrays with Object.entries(), Object.keys, Object.values()
+      //    these static methods work on objects onyl, but they return array
+      console.log(Array.from(Object.entries(meats)));
+      console.log(Array.from(Object.keys(meats)));
+      console.log(Array.from(Object.values(meats)));
+
+      /*
+            Instance Methods
+          */
+
+      // Display all bun types with " or " - use join()
+      console.log(buns.join(" - "));
+
+      // We have a string "hot dogs,hamburgers,sausages,corn" - use split() to turn it into a string
+      const str = "hot dogs,hamburgers,sausages,corn";
+      const strArr = str.split(",");
+      const ans = strArr.join(" & ");
+
+      console.log(ans);
+
+      // take the last item off toppings with pop()
+      console.log(toppings.pop());
+      // add it back with push()
+      console.log(toppings.push("Cheese"));
+      // take the first item off toppings with shift()
+      console.log(toppings.shift());
+      // add it back in with unshift()
+      console.log(toppings.unshift("Mushroom"));
+      // Do the last four,but immutable (with spreads and new variables)
+
+      // Make a copy of the toppings array with slice()
+      const toppingsCopy1 = toppings.slice(0, toppings.length);
+      console.log(toppingsCopy1);
+
+      // Make a copy of the toppings array with a spread
+      const toppingsCopy2 = [...toppings];
+      console.log(toppingsCopy2);
+
+      // take out items 3 to 5 of your new toppings array with splice()
+      console.log(toppingsCopy1.splice(3, 3));
+
+      // find the index of Avocado with indexOf() / lastIndexOf()
+
+      /*
+              let tiasax = {name: 'tia'}
+              let obj = {tiasax, {name: 'saxena'}}
+              obj.indexOf(tiasax) ---> returns 0
+              obj.indexOf({name: 'saxena'}) ---> returns -1, that is not found
+              Why? Beacause even though const name1 = {name: 'Tia'} & const name2 = {name: "Tia"} looks exactly
+              the same. They are not the same.
+              That is : name1 === name2 will return a false, because of the fact that name1 and name2 are notthe actual objects.
+              They are rather the references, they don't do a deep check for all the properties to line up
+              //name1 and name2 are occupies in different memory location da!
+        */
+      console.log(toppings.indexOf("Avocado"));
+      // Check if hot sauce is in the toppings with includes()
+      console.log(toppings.includes("Hot Sauce"));
+      // add it if it's not
+      // flip those toppings around with reverse()
+      if (!toppings.includes("Hot Dog")) {
+        toppings.push("Hot Dog");
+      }
+
+      /*
+            Callback Methods
+          */
+
+      // find the first rating that talks about a burger with find()
+      //    find() method takes a function as a parameter
+      //          We first got to check in the comments if there is anything related
+      //          to the burger. Next, we can check for the corresponding ratings
+      const burgRating = feedback.find((element) => {
+        //the function can be regular one and call a rederence to the function. It takes 3 arguements-> element, index, this arguement. Only element is mandatory rest of the two arguements are optional
+        if (element.comment.includes("burg")) {
+          console.log(element);
+        }
+      });
+
+      /*The above can be also done by making the object and passing the funtion. This makes it a mehod. So in future, object.function_name will be just needed to get to  the results. Below s t he implementation for the same*/
+
+      // const util = {
+      //   findRating: function (element) {
+      //     return element.comment.includes("burg");
+      //   },
+      // };
+
+      // find all ratings that are above 2 with filter()
+
+      const rateAbove2 = feedback.filter((element) => element.rating > 2);
+      console.table(rateAbove2);
+
+      // find all ratings that talk about a burger with filter()
+      const rateBurg = feedback.filter((element) =>
+        element.comment.includes("burg")
+      );
+      console.table(rateBurg);
+
+      // Remove the one star rating however you like!
+      const removeComment = feedback.filter((element) => element.rating !== 1);
+      console.table(removeComment);
+
+      // check if there is at least 5 of one type of meat with some()
+      const atLeast5 = Object.values(meats).some((element) => element >= 5);
+      console.table(atLeast5);
+
+      // make sure we have at least 3 of every meat with every()
+      const atLeast3 = Object.values(meats).every((element) => element >= 3);
+      console.table(atLeast3);
+
+      // sort the toppings alphabetically with sort()
+      console.log(toppings.sort());
+
+      // sort the order totals from most expensive to least with .sort()
+      const sortedOrder = orderTotals.sort((first, second) => first - second);
+      console.log(sortedOrder);
+
+      // Sort the prices with sort()
+      const sortPrice = Object.entries(prices).sort(
+        (one, two) => one[1] - two[1]
+      );
+      console.table(sortPrice);
+      /*
+            Looping Methods (next)
+          */
+    </script>
+  </body>
+</html>
